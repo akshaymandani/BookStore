@@ -223,7 +223,8 @@ const footerStyle = makeStyles((theme) => ({
         "& .text-center": {
           textAlign: "center",
           "& .footer-logo": {
-            margin: "0 0 18px",
+            // margin: "0 0 18px",
+            margin: "0",
             "& a": {
               display: "block",
               "& img": {

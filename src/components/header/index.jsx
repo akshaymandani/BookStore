@@ -4,7 +4,8 @@ import { headerStyle } from "./style";
 import List from "@material-ui/core/List";
 import AppBar from "@material-ui/core/AppBar";
 import ListItem from "@material-ui/core/ListItem";
-import siteLogo from "../../assets/images/site-logo.svg";
+// import siteLogo from "../../assets/images/site-logo.svg";
+import siteLogo from "../../assets/images/mmltb.png";
 import cartIcon from "../../assets/images/cart.png";
 import searchIcon from "../../assets/images/search.png";
 import { TextField, Button } from "@material-ui/core";
@@ -144,72 +145,73 @@ const Header = () => {
             document.body.classList.remove("search-results-open");
           }}
         ></div>
-        <div className="header-search-wrapper">
-          <div className="container">
-            <div className="header-search-outer">
-              <div className="header-search-inner">
-                <div className="text-wrapper">
-                  <TextField
-                    id="text"
-                    name="text"
-                    placeholder="What are you looking for..."
-                    variant="outlined"
-                    value={query}
-                    onChange={(e) => setquery(e.target.value)}
-                  />
-
-                  {openSearchResult && (
-                    <>
-                      <div className="product-listing">
-                        {bookList?.length === 0 && (
-                          <p className="no-product">No product found</p>
-                        )}
-
-                        {/* <p className="loading">Loading....</p> */}
-                        <List className="related-product-list">
-                          {bookList?.length > 0 &&
-                            bookList.map((item, i) => {
-                              return (
-                                <ListItem key={i}>
-                                  <div className="inner-block">
-                                    <div className="left-col">
-                                      <span className="title">{item.name}</span>
-                                      <p>{item.description}</p>
+        {authContext.user.id && (
+          <div className="header-search-wrapper">
+            <div className="container">
+              <div className="header-search-outer">
+                <div className="header-search-inner">
+                  <div className="text-wrapper">
+                    <TextField
+                      id="text"
+                      name="text"
+                      placeholder="What are you looking for..."
+                      variant="outlined"
+                      value={query}
+                      onChange={(e) => setquery(e.target.value)}
+                    />
+                    {openSearchResult && (
+                      <>
+                        <div className="product-listing">
+                          {bookList?.length === 0 && (
+                            <p className="no-product">No product found</p>
+                          )}
+                          {/* <p className="loading">Loading....</p> */}
+                          <List className="related-product-list">
+                            {bookList?.length > 0 &&
+                              bookList.map((item, i) => {
+                                return (
+                                  <ListItem key={i}>
+                                    <div className="inner-block">
+                                      <div className="left-col">
+                                        <span className="title">{item.name}</span>
+                                        <p>{item.description}</p>
+                                      </div>
+                                      <div className="right-col">
+                                        <span className="price">
+                                          {item.price}
+                                        </span>
+                                        <Link onClick={() => addToCart(item)}>
+                                          Add to cart
+                                        </Link>
+                                      </div>
                                     </div>
-                                    <div className="right-col">
-                                      <span className="price">
-                                        {item.price}
-                                      </span>
-                                      <Link onClick={() => addToCart(item)}>
-                                        Add to cart
-                                      </Link>
-                                    </div>
-                                  </div>
-                                </ListItem>
-                              );
-                            })}
-                        </List>
-                      </div>
-                    </>
-                  )}
+                                  </ListItem>
+                                );
+                              })}
+                          </List>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                  <Button
+                    type="submit"
+                    className="green-btn btn"
+                    variant="contained"
+                    color="primary"
+                    disableElevation
+                    onClick={search}
+                  >
+                    <em>
+                      <img src={searchIcon} alt="search" />
+                    </em>
+                    Search
+                  </Button>
                 </div>
-                <Button
-                  type="submit"
-                  className="green-btn btn"
-                  variant="contained"
-                  color="primary"
-                  disableElevation
-                  onClick={search}
-                >
-                  <em>
-                    <img src={searchIcon} alt="search" />
-                  </em>
-                  Search
-                </Button>
               </div>
             </div>
           </div>
-        </div>
+        )}
+
       </AppBar>
     </div>
   );
